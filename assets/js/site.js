@@ -33,13 +33,8 @@ const grid = document.querySelector("#game-grid");
 if (grid) {
   const filterBar = document.querySelector("#category-list");
   const search = document.querySelector("#game-search");
-  const stateKey = "runoki-list-state";
   let selectedCategory = "All";
-  let savedState = null;
-  try { savedState = JSON.parse(sessionStorage.getItem(stateKey) || "null"); } catch {}
   const categories = ["All", ...new Set(GAMES.map(game => game.category).filter(Boolean))];
-  if (savedState && categories.includes(savedState.category)) selectedCategory = savedState.category;
-  if (savedState && typeof savedState.query === "string") search.value = savedState.query;
 
   filterBar.innerHTML = categories.map(category =>
     `<button class="category-button" type="button" data-category="${escapeHTML(category)}" aria-pressed="${category === selectedCategory}">${escapeHTML(category)}</button>`
@@ -63,9 +58,6 @@ if (grid) {
         </a>
       </article>`).join("") : '<p class="empty-state">No games found. Try another search, or give up and go outside.</p>';
   }
-  function saveListState() {
-    try { sessionStorage.setItem(stateKey, JSON.stringify({ category: selectedCategory, query: search.value, scrollY: window.scrollY })); } catch {}
-  }
   filterBar.addEventListener("click", event => {
     const button = event.target.closest("button[data-category]");
     if (!button) return;
@@ -80,12 +72,7 @@ if (grid) {
     const pick = choices[Math.floor(Math.random() * choices.length)];
     location.href = "game.html?id=" + encodeURIComponent(pick.id);
   });
-  grid.addEventListener("click", event => { if (event.target.closest("a.card-link")) saveListState(); });
   renderGames();
-  if (savedState && Number.isFinite(savedState.scrollY)) {
-    requestAnimationFrame(() => window.scrollTo(0, savedState.scrollY));
-    try { sessionStorage.removeItem(stateKey); } catch {}
-  }
 }
 
 const title = document.querySelector("#detail-title");
