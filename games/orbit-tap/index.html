@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Orbit Tap</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#b8dcd2;color:#163c36;font-family:system-ui,sans-serif;display:grid;place-items:center;overflow:hidden}.game{width:min(100%,700px);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}.top{width:min(100%,440px);display:flex;justify-content:space-between;font-size:12px;letter-spacing:1px;text-transform:uppercase}.score{font-size:14px;font-weight:700}.arena{width:min(78vw,380px);aspect-ratio:1;border:1px solid #163c3655;border-radius:50%;position:relative;margin:25px 0;display:grid;place-items:center}.arena:before,.arena:after{content:"";position:absolute;border:1px solid #163c3633;border-radius:50%;inset:16%}.arena:after{inset:32%}.target{position:absolute;width:42px;height:42px;border:0;border-radius:50%;background:#d4f36a;box-shadow:0 0 0 7px #d4f36a55;cursor:pointer;z-index:2;transform:translate(115px,-80px);transition:transform .45s cubic-bezier(.2,.7,.2,1),scale .1s}.target:active{scale:.85}.center{font-weight:800;font-size:31px;letter-spacing:-2px;z-index:1}.message{text-align:center;max-width:310px;min-height:42px;font-size:14px;line-height:1.5}.start{border:0;background:#163c36;color:#fff;padding:13px 24px;font-weight:700;cursor:pointer}.hint{font-size:11px;opacity:.65;margin-top:14px}.target[hidden]{display:none}
+</style></head>
+<body><main class="game"><div class="top"><span>RUNOKI · 001</span><span class="score">STREAK <b id="score">0</b></span></div><div class="arena" id="arena"><span class="center">TAP</span><button class="target" id="target" aria-label="Tap the orbiting dot" hidden></button></div><p class="message" id="message">Wait for the dot, then tap it before it moves.</p><button class="start" id="start">Start game</button><span class="hint">Works with touch or mouse</span></main>
+<script>
+const target=document.querySelector("#target"),scoreNode=document.querySelector("#score"),message=document.querySelector("#message"),start=document.querySelector("#start"),arena=document.querySelector("#arena");let score=0,active=false,timer;
+function move(){const max=arena.clientWidth*.34;const angle=Math.random()*Math.PI*2;target.style.transform=`translate(${Math.cos(angle)*max}px,${Math.sin(angle)*max}px)`}
+function end(){active=false;clearTimeout(timer);target.hidden=true;message.textContent=`Nice run — you caught ${score} ${score===1?"dot":"dots"}. Try again?`;start.hidden=false;start.textContent="Play again"}
+start.addEventListener("click",()=>{score=0;active=true;scoreNode.textContent=score;message.textContent="Catch the dot!";start.hidden=true;target.hidden=false;move();timer=setTimeout(end,18000)});
+target.addEventListener("click",()=>{if(!active)return;score++;scoreNode.textContent=score;move()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&active)end()});
+</script></body></html>
