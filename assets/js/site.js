@@ -45,12 +45,16 @@ if (grid) {
     `<button class="category-button" type="button" data-category="${escapeHTML(category)}" aria-pressed="${category === selectedCategory}">${escapeHTML(category)}</button>`
   ).join("");
 
-  function renderGames() {
+  function visibleGames() {
     const query = search.value.trim().toLowerCase();
-    const visible = GAMES.filter(game =>
+    return GAMES.filter(game =>
       (selectedCategory === "All" || game.category === selectedCategory) &&
       (game.title.toLowerCase().includes(query) || game.category.toLowerCase().includes(query))
     );
+  }
+  function renderGames() {
+    const visible = visibleGames();
+    document.querySelector("#surprise-button").disabled = visible.length === 0;
     grid.innerHTML = visible.length ? visible.map((game, index) => `
       <article class="game-card" style="--card-delay:${Math.min(index * 75, 450)}ms">
         <a class="card-link" href="game.html?id=${encodeURIComponent(game.id)}" aria-label="Play ${escapeHTML(game.title)}">
@@ -70,6 +74,12 @@ if (grid) {
     renderGames();
   });
   search.addEventListener("input", renderGames);
+  document.querySelector("#surprise-button").addEventListener("click", () => {
+    const choices = visibleGames();
+    if (!choices.length) return;
+    const pick = choices[Math.floor(Math.random() * choices.length)];
+    location.href = "game.html?id=" + encodeURIComponent(pick.id);
+  });
   grid.addEventListener("click", event => { if (event.target.closest("a.card-link")) saveListState(); });
   renderGames();
   if (savedState && Number.isFinite(savedState.scrollY)) {
@@ -132,17 +142,6 @@ if (title) {
     document.addEventListener("fullscreenchange", updateFullscreenLabel);
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && fallbackFullscreen) setFallbackFullscreen(false);
-    });
-    document.querySelectorAll("[data-return-link]").forEach(link => {
-      link.addEventListener("click", event => {
-        try {
-          const previous = new URL(document.referrer);
-          if (previous.origin === location.origin && previous.pathname.endsWith("/index.html")) {
-            event.preventDefault();
-            history.back();
-          }
-        } catch {}
-      });
     });
     window.addEventListener("pagehide", () => {
       if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
