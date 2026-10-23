@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f5ef">
+  <meta name="theme-color" content="#fff8e8">
   <title>Play a game — Runoki</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="assets/js/site.js" defer></script>
 </head>
 <body class="game-page">
   <header class="site-header game-header">
-    <a class="wordmark" href="index.html">Runoki</a>
-    <a class="back-link" href="index.html#games">← Back to the games</a>
+    <a class="brand-link" href="index.html"><span class="wordmark" aria-label="Runoki"><span>R</span><span>u</span><span>n</span><span>o</span><span>k</span><span>i</span></span></a>
+    <a class="back-link" data-return-link href="index.html#games">← Back to the games</a>
   </header>
   <main class="detail-main">
     <div class="detail-top">
       <div><p class="eyebrow">You picked</p><h1 id="detail-title">Loading game…</h1></div>
-      <button class="button play-button" id="play-button" type="button">Play</button>
+      <button class="button play-button" id="play-button" type="button">Let’s play</button>
     </div>
     <div class="game-stage" id="game-stage">
       <div class="stage-placeholder" id="stage-placeholder"><p>Stretch your fingers. Or don’t.</p><button class="button button-light" id="stage-play" type="button">Start playing</button></div>
       <iframe id="game-frame" title="Game" allow="fullscreen; gamepad" loading="lazy"></iframe>
-      <div class="fullscreen-bar"><a href="index.html#games" class="bar-brand">Runoki</a><span id="bar-title">Game time</span><button id="fullscreen-button" type="button">Fullscreen</button></div>
+      <div class="fullscreen-bar"><a href="index.html#games" class="bar-brand" data-return-link><span class="wordmark" aria-label="Runoki"><span>R</span><span>u</span><span>n</span><span>o</span><span>k</span><span>i</span></span></a><span id="bar-title">Game time</span><button id="fullscreen-button" type="button">Fullscreen</button></div>
     </div>
     <div class="detail-bottom"><p id="detail-description"></p><span class="game-tag" id="detail-tag"></span></div>
   </main>
-  <footer class="site-footer"><a class="wordmark" href="index.html">Runoki</a><p>One more round is not a legally binding promise.</p></footer>
+  <footer class="site-footer"><a class="brand-link" href="index.html"><span class="wordmark" aria-label="Runoki"><span>R</span><span>u</span><span>n</span><span>o</span><span>k</span><span>i</span></span></a><p>One more round is not a legally binding promise.</p></footer>
 </body>
 </html>
