@@ -15,14 +15,20 @@
     <a class="header-link" href="#games">Skip the intro, play a game ↓</a>
   </header>
   <main>
-    <section class="intro">
-      <div class="intro-copy">
-        <p class="hand-note">The tiny game corner made by us</p>
-        <h1>Hi. We’re<br><span class="intro-name">Runoki</span><span class="title-period">!</span></h1>
-        <p class="intro-line">We made a place for our games.<br>You can play them. That’s the whole plan.</p>
+    <section class="splash" aria-label="Welcome to Runoki">
+      <div class="marquee-stack" aria-hidden="true">
+        <div class="marquee-row marquee-top"><div class="marquee-track" id="marquee-top"></div></div>
+        <div class="marquee-row marquee-middle"><div class="marquee-track" id="marquee-middle"></div></div>
+        <div class="marquee-row marquee-bottom"><div class="marquee-track" id="marquee-bottom"></div></div>
       </div>
-      <div class="scribble" aria-hidden="true"><span>warning:<br>time may<br>disappear</span><i></i></div>
-      <span class="margin-note" aria-hidden="true">mum says<br>five minutes</span>
+      <div class="splash-wash"></div>
+      <div class="splash-copy">
+        <p class="splash-note">The tiny game corner made by us</p>
+        <h1 class="wordmark wordmark-big" aria-label="Runoki"><span>R</span><span>u</span><span>n</span><span>o</span><span>k</span><span>i</span></h1>
+        <p>We made some games.<br>You should probably try one.</p>
+        <a class="splash-button" href="#games">See what we made <span aria-hidden="true">↓</span></a>
+      </div>
+      <span class="splash-side-note" aria-hidden="true">mum says five minutes</span>
     </section>
     <section class="games-section" id="games">
       <div class="list-heading"><div><p class="section-kicker">THE GOOD BIT</p><h2>Pick a game</h2></div><label class="search"><span class="visually-hidden">Search games</span><input id="game-search" type="search" placeholder="Find one…" autocomplete="off"></label></div>
