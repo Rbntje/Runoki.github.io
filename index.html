@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f5ef">
+  <meta name="theme-color" content="#fff8e8">
   <meta name="description" content="A small, slightly chaotic shelf of games made by friends.">
   <title>Runoki — Games, probably</title>
   <link rel="stylesheet" href="assets/css/style.css">
@@ -11,24 +11,26 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="wordmark" href="index.html">Runoki</a>
-    <a class="header-link" href="#games">Go play something <span aria-hidden="true">↓</span></a>
+    <a class="brand-link" href="index.html"><span class="wordmark" aria-label="Runoki"><span>R</span><span>u</span><span>n</span><span>o</span><span>k</span><span>i</span></span></a>
+    <a class="header-link" href="#games">Skip the intro, play a game ↓</a>
   </header>
   <main>
     <section class="intro">
       <div class="intro-copy">
-        <p class="hand-note">A little game shelf on the internet</p>
-        <h1>Runoki<span class="title-period">.</span></h1>
-        <p class="intro-line">Games made by friends.<br>Some are good. All are playable.</p>
+        <p class="hand-note">The tiny game corner made by us</p>
+        <h1>Hi. We’re<br><span class="intro-name">Runoki</span><span class="title-period">!</span></h1>
+        <p class="intro-line">We made a place for our games.<br>You can play them. That’s the whole plan.</p>
       </div>
-      <div class="scribble" aria-hidden="true"><span>probably<br>just one more</span><i></i></div>
+      <div class="scribble" aria-hidden="true"><span>warning:<br>time may<br>disappear</span><i></i></div>
+      <span class="margin-note" aria-hidden="true">mum says<br>five minutes</span>
     </section>
     <section class="games-section" id="games">
-      <div class="list-heading"><h2>Pick a game</h2><label class="search"><span class="visually-hidden">Search games</span><input id="game-search" type="search" placeholder="Search…" autocomplete="off"></label></div>
+      <div class="list-heading"><div><p class="section-kicker">THE GOOD BIT</p><h2>Pick a game</h2></div><label class="search"><span class="visually-hidden">Search games</span><input id="game-search" type="search" placeholder="Find one…" autocomplete="off"></label></div>
       <nav class="category-list" id="category-list" aria-label="Filter games by category"></nav>
       <div class="game-grid" id="game-grid" aria-live="polite"></div>
+      <p class="list-footnote">New games appear when we finish making them. So… whenever.</p>
     </section>
   </main>
-  <footer class="site-footer"><a class="wordmark" href="index.html">Runoki</a><p>Close the tab when your mum says so.</p></footer>
+  <footer class="site-footer"><a class="brand-link" href="index.html"><span class="wordmark" aria-label="Runoki"><span>R</span><span>u</span><span>n</span><span>o</span><span>k</span><span>i</span></span></a><p>Made with friends. Probably played past bedtime.</p></footer>
 </body>
 </html>
