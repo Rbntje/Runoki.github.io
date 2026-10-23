@@ -1,4 +1,4 @@
-// Add one object per game. Keep its cover image and game files together in its folder.
+// Add one object per game. Its cover appears in both the game list and the moving homepage ribbons.
 const GAMES = [
   {
     id: "orbit-tap",
@@ -13,6 +13,21 @@ const GAMES = [
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
 }
+
+// The three homepage ribbons are generated from GAMES, so adding a game adds it here too.
+function buildRibbon(id, reverse = false) {
+  const track = document.querySelector(id);
+  if (!track || !GAMES.length) return;
+  const repeats = Math.max(1, Math.ceil((window.innerWidth * 1.25) / (GAMES.length * 225)));
+  const segment = () => `<div class="marquee-segment">${Array.from({ length: repeats }, () => GAMES.map(game =>
+    `<div class="marquee-tile"><img src="${escapeHTML(game.image)}" alt="" loading="lazy"><span>${escapeHTML(game.title)}</span></div>`
+  ).join("")).join("")}</div>`;
+  track.innerHTML = segment() + segment();
+  if (reverse) track.dataset.direction = "reverse";
+}
+buildRibbon("#marquee-top");
+buildRibbon("#marquee-middle", true);
+buildRibbon("#marquee-bottom");
 
 const grid = document.querySelector("#game-grid");
 if (grid) {
@@ -37,7 +52,7 @@ if (grid) {
       (game.title.toLowerCase().includes(query) || game.category.toLowerCase().includes(query))
     );
     grid.innerHTML = visible.length ? visible.map((game, index) => `
-      <article class="game-card" style="animation-delay:${Math.min(index * 65, 400)}ms">
+      <article class="game-card" style="--card-delay:${Math.min(index * 75, 450)}ms">
         <a class="card-link" href="game.html?id=${encodeURIComponent(game.id)}" aria-label="Play ${escapeHTML(game.title)}">
           <div class="game-art"><img src="${escapeHTML(game.image)}" alt="${escapeHTML(game.title)}" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="card-placeholder" hidden>${escapeHTML(game.title)}<br>Cover coming soon</div></div>
           <div class="card-meta"><h3 class="card-title">${escapeHTML(game.title)}</h3><p class="card-category">${escapeHTML(game.category)}</p></div>
@@ -45,9 +60,7 @@ if (grid) {
       </article>`).join("") : '<p class="empty-state">No games found. Try another search, or give up and go outside.</p>';
   }
   function saveListState() {
-    try {
-      sessionStorage.setItem(stateKey, JSON.stringify({ category: selectedCategory, query: search.value, scrollY: window.scrollY }));
-    } catch {}
+    try { sessionStorage.setItem(stateKey, JSON.stringify({ category: selectedCategory, query: search.value, scrollY: window.scrollY })); } catch {}
   }
   filterBar.addEventListener("click", event => {
     const button = event.target.closest("button[data-category]");
@@ -57,9 +70,7 @@ if (grid) {
     renderGames();
   });
   search.addEventListener("input", renderGames);
-  grid.addEventListener("click", event => {
-    if (event.target.closest("a.card-link")) saveListState();
-  });
+  grid.addEventListener("click", event => { if (event.target.closest("a.card-link")) saveListState(); });
   renderGames();
   if (savedState && Number.isFinite(savedState.scrollY)) {
     requestAnimationFrame(() => window.scrollTo(0, savedState.scrollY));
@@ -75,7 +86,6 @@ if (title) {
   const frame = document.querySelector("#game-frame");
   const fullscreenButton = document.querySelector("#fullscreen-button");
   let fallbackFullscreen = false;
-
   const setFallbackFullscreen = enabled => {
     fallbackFullscreen = enabled;
     player.classList.toggle("is-fullscreen-fallback", enabled);
@@ -90,7 +100,6 @@ if (title) {
       fullscreenButton.textContent = "Exit fullscreen";
     } else if (!fallbackFullscreen) fullscreenButton.textContent = "Fullscreen";
   };
-
   if (!game) {
     title.textContent = "Game not found";
     document.querySelector("#detail-description").textContent = "That game wandered off. Head back to the list and pick another.";
@@ -112,14 +121,8 @@ if (title) {
     document.querySelector("#play-button").addEventListener("click", begin);
     document.querySelector("#stage-play").addEventListener("click", begin);
     fullscreenButton.addEventListener("click", async () => {
-      if (document.fullscreenElement) {
-        await document.exitFullscreen();
-        return;
-      }
-      if (fallbackFullscreen) {
-        setFallbackFullscreen(false);
-        return;
-      }
+      if (document.fullscreenElement) { await document.exitFullscreen(); return; }
+      if (fallbackFullscreen) { setFallbackFullscreen(false); return; }
       begin();
       try {
         if (!player.requestFullscreen) throw new Error("Fullscreen is unavailable");
