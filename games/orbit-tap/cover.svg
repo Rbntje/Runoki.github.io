@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640">
+<rect width="800" height="640" fill="#dcebe2"/>
+<circle cx="400" cy="320" r="235" fill="none" stroke="#20493f" stroke-opacity=".24" stroke-width="2"/>
+<circle cx="400" cy="320" r="170" fill="none" stroke="#20493f" stroke-opacity=".3" stroke-width="2"/>
+<circle cx="400" cy="320" r="103" fill="none" stroke="#20493f" stroke-opacity=".34" stroke-width="2"/>
+<circle cx="400" cy="320" r="38" fill="#f9f8f2"/>
+<circle cx="400" cy="320" r="13" fill="#244e42"/>
+<circle cx="535" cy="190" r="24" fill="#c6e87b"/>
+<path d="M400 320 535 190" stroke="#20493f" stroke-opacity=".22" stroke-width="2"/>
+<text x="48" y="580" font-family="Arial,sans-serif" font-size="20" letter-spacing="3" fill="#35564d">ORBIT TAP</text>
+</svg>
